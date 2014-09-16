@@ -110,6 +110,7 @@ module.exports = function (grunt) {
     // register tasks
     grunt.registerTask('assets:js', ['requirejs:dev']);
     grunt.registerTask('assets:css', ['compass:dev']);
+    grunt.registerTask('test', ['karma']);
     grunt.registerTask('build', ['requirejs:prod', 'ngAnnotate', 'concat', 'clean:build']);
 
     // register default task
