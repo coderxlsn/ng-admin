@@ -49,6 +49,13 @@ define(['lib/config/Configurable'], function (Configurable) {
         return null;
     };
 
+    var defaultSortParams = function (field, dir) {
+        return {
+            _sort: field,
+            _sortDir: dir
+        };
+    };
+
     return function(entityName) {
         var name = entityName || 'entity';
         var fields = {};
@@ -67,6 +74,7 @@ define(['lib/config/Configurable'], function (Configurable) {
             infinitePagination: false,
             totalItems: defaultTotalItems,
             extraParams: null,
+            sortParams: defaultSortParams,
             interceptor: null
         };
 
@@ -193,6 +201,20 @@ define(['lib/config/Configurable'], function (Configurable) {
             var params = {};
             if (config.extraParams) {
                 params = typeof (config.extraParams) === 'function' ? config.extraParams() : config.extraParams;
+            }
+
+            return params;
+        };
+
+        /**
+         * Return configurables sorting params
+         *
+         * @returns {Object}
+         */
+        Entity.getSortParams = function(sortField, sortDir) {
+            var params = null;
+            if (sortField) {
+                params = typeof (config.sortParams) === 'function' ? config.sortParams(sortField, sortDir) : config.sortParams;
             }
 
             return params;
